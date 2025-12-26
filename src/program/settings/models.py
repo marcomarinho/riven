@@ -850,10 +850,20 @@ class SubtitleProviderConfig(Observable):
     enabled: bool = Field(default=False, description="Enable this subtitle provider")
 
 
+class LegendasDivxProviderConfig(Observable):
+    enabled: bool = Field(default=False, description="Enable LegendasDivx provider")
+    username: str = Field(default="", description="LegendasDivx username")
+    password: str = Field(default="", description="LegendasDivx password")
+
+
 class SubtitleProvidersDict(Observable):
     opensubtitles: SubtitleProviderConfig = Field(
         default_factory=lambda: SubtitleProviderConfig(),
         description="OpenSubtitles provider configuration",
+    )
+    legendasdivx: LegendasDivxProviderConfig = Field(
+        default_factory=lambda: LegendasDivxProviderConfig(),
+        description="LegendasDivx provider configuration",
     )
 
 

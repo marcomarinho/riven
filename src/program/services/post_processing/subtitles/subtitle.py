@@ -73,9 +73,15 @@ class SubtitleService(AnalysisService[SubtitleConfig]):
             except Exception as e:
                 logger.error(f"Failed to initialize OpenSubtitles provider: {e}")
 
-        # Add more providers here in the future
-        # if provider_configs.get("opensubtitlescom", {}).get("enabled"):
-        #     ...
+        # Initialize LegendasDivx provider
+        if provider_configs.legendasdivx.enabled:
+            try:
+                from .providers.legendasdivx import LegendasDivxProvider
+                provider = LegendasDivxProvider()
+                self.providers.append(provider)
+                logger.debug("LegendasDivx provider initialized")
+            except Exception as e:
+                logger.error(f"Failed to initialize LegendasDivx provider: {e}")
 
     @classmethod
     def _parse_languages(cls, language_codes: list[str]) -> list[str]:
